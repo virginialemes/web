@@ -6,7 +6,7 @@ Contexto:
     E clique em crie sua conta aqui 
     E inserir o primeiro nome, sobrenome, email e senha e confirme a senha 
     Quando clicar no botão de criar conta
-    Então deve ser redirecionado para uma nova página de confirmação de criação de conta 
+    Então deve ser redirecionado para o menu inicial da conta 'https://magento.nublue.co.uk/customer/account'
 
   Cenário: Login bem-sucedido com credenciais válidas
     Dado que o usuário visite a página de login em 'https://magento.nublue.co.uk/'
@@ -39,3 +39,20 @@ Contexto:
     Quando clicar no botão de entrar sem inserir credenciais
     Então deverá ter um alerta com 'Campo obrigatório'
     E não poderá ser redirecionado para o menu inicial 
+
+    
+  Cenário: Adicionando produto no carrinho 
+    Dado que o usuário já esteja logado no sistema 
+    E selecione um determinado produto 
+    Quando clicar no botão adicionar ao carrinho 
+    Então o produto deverá ser adicionado ao carrinho para finalização da compra 
+
+    Cenário: Finalização de compra 
+    Dado que o usuário já tenha adicionado um determinado produto ao carrinho 
+    E queira finalizar a compra 
+    E escolha o método de pagamento desejado 
+    Quando clicar em finalizar a compra 
+    Então o produto será efetivamente comprado e uma mensagem deverá alertar o usuário que a compra foi efetivada 
+
+ 
+ 
