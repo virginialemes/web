@@ -1,1 +1,52 @@
+describe('Login', () => {
 
+  beforeEach(() => {
+    cy.visit('https://magento2-demo.magebit.com/')
+  });
+
+
+  it('Cadastro de novos usuários ', () => {
+    cy.get('.panel > .header > :nth-child(3) > #idk8RjF2KE').click()
+    cy.url().should('eq', 'https://magento2-demo.magebit.com/customer/account/create/');
+    
+    cy.get('#firstname').type('Primeiro Nome');
+    cy.get('#lastname').type('Sobrenome');
+
+    cy.get('#email_address').type('teste@example.com');
+    cy.get('#password').type('Senha123');
+    cy.get('#password-confirmation').type('Senha123');
+    cy.get('button.action.submit.primary').click();
+    cy.contains('My Account').should('be.visible');
+
+  })
+
+  it('Login com credenciais válidas ', () => {
+      cy.get('.panel > .header > .authorization-link > a').click();
+      cy.get('input[name="login[username]"]')
+        .type('vi.lemesribeiro@gmail.com');
+      cy.get('input[name="login[password]"]')
+        .type('Jacareverde123');
+      cy.get('.action.login.primary').click();
+      cy.contains('My Account').should('be.visible');
+
+    })
+
+    it('Login com credenciais inválidas ', () => {
+      cy.get('.panel > .header > .authorization-link > a').click();
+      cy.get('input[name="login[username]"]')
+        .type('teste@gmail.com');
+      cy.get('input[name="login[password]"]')
+        .type('123');
+      cy.get('.action.login.primary').click();
+      cy.contains('The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.').should('be.visible');
+
+    })
+
+    it('Login com credenciais em branco', () => {
+      cy.get('.panel > .header > .authorization-link > a').click();
+      cy.get('.action.login.primary').click();
+      cy.contains('A login and a password are required.').should('be.visible');
+
+    })
+
+});
